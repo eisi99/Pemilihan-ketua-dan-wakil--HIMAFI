@@ -114,12 +114,12 @@ int main (){
        string uname,pass;
         cout<<"Username : "; cin>>uname;
         cout<<"Password : "; pass=passBintang();
-       if ((uname=="Asri")&&(pass=="2011014320004")){ //data admin itu dinamis
+       if ((uname=="admin")&&(pass=="admin")){ //data admin itu dinamis
 		cout<<"\n+-------------------------+\n";
 		cout<<"|   MASUK SEBAGAI ADMIN   |\n";
 		cout<<"+-------------------------+\n\n";
-			admin();}
-	else{
+		voter(uname);
+	}else{
            int i=0;
 		int N=hitungData('u');
 		datalogin data[N];
@@ -171,14 +171,14 @@ bool bisaLogin(string uname){
 
 void admin(){
 	int x; int i=0;
-	int N=hitungData('m');
+	int N=hitungData('n');
 	dataMahasiswa data[N];
 	ifstream load;
 
 	//admin searching uname
 	load.open("datamhs.txt");
 	while (!load.eof()){
-		load>>data[i].nim; load>>data[i].prodi ; load>>data[i].keterangan; load>>data[i].voting;
+		load>>data[i].nim; load>>data[i].keterangan; load>>data[i].voting;
 		i++;
 	}
 
@@ -191,22 +191,17 @@ void admin(){
 				pilihan2 :
 				hasilVote();  // memanggil prosedur hasilVote()
 				cout<<"1. Lihat detail vote\n2. Kembali\nPilihan : "; cin>>pilih;
-					switch (pilih){
-						case 1 : cout<<"\nTekan ENTER untuk lanjutkan..."; cin.get(); cin.ignore();
-								system("CLS"); goto pilihan; break;
-						default : cout<<"\nPilihan yang anda masukkan salah ..."; cin.get(); cin.ignore();
-								system("CLS"); goto pilihan2; break;
-					}
+					switch (pilih)
 				cout<<"\nTekan ENTER untuk lanjutkan..."; cin.get(); cin.ignore();
 				system("CLS"); goto pilihan; break;
 		case 3 : tampilkanData(); cin.get(); cin.ignore();
 				system("CLS"); goto pilihan; break;
 		case 4 : cout<<"\nTekan ENTER untuk lanjutkan..."; cin.get(); cin.ignore();
 				system("CLS");
+				void();
 				break;
 		default : goto pilihan; break;
 	}
-
 	search:
 	string cari;
 	cout<<"\nMasukkan NIM mahasiswa yang ingin di cari : "; cin>>cari;
@@ -217,7 +212,7 @@ void admin(){
 		cout <<"1. Dapatkan Password\n2. Kembali\nPilihan : "; cin>>pilih;
 
 		switch (pilih){
-			case 1 : generatePass(8,data[x].nim);  //admin save password file external keubah
+			case 1 : generatePass(12,data[x].nim);  //admin save password file external keubah
 					cout<<"\nTekan ENTER untuk lanjutkan..."; cin.get(); cin.ignore();
 					system("CLS");
 					goto pilihan;
@@ -351,6 +346,7 @@ void hasilVote(){
 		load>>calon[i].ket;
 		i++;
 	}load.close();
+
 
 	int sum=0;
 	for (int i=0;i<N;i++){
